@@ -1,4 +1,4 @@
- using System.Diagnostics;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
 namespace TurtleEngine;
@@ -145,7 +145,6 @@ public struct RectangleF : IEquatable<RectangleF>
     ///     <see langword="true"/> if the two <see cref="RectangleF"/> instances are not equal; otherwise,
     ///     <see langword="false"/>.
     public static bool operator !=(RectangleF a, RectangleF b) => !(a == b);
-
 
     /// <summary>
     ///     Returns a value that indicates whether the specified xy-coordinate location lies within the bounds of this
