@@ -1,0 +1,22 @@
+[Bb]in/
+[Oo]bj/
+.artifacts/
+
+# Coverlet is a free, cross platform Code Coverage Tool
+coverage*.json
+coverage*.xml
+coverage*.info
+tools/
+
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Ignore packages dir for local package installs used by the example projects
+[Pp]ackages/
+
+# Visual Studio
+.vs/
+
+# Ignore the demo game I create when developing
+[Dd]emoGame/
