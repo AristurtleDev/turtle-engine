@@ -41,7 +41,7 @@ public sealed class KeyboardInfo
     }
 
     /// <summary>
-    ///     Returns a value that indicates if the specified keyboard key is
+    ///     Returns a value that indicates whether the specified keyboard key is
     ///     currently held down.
     /// </summary>
     /// <param name="key">
@@ -54,8 +54,8 @@ public sealed class KeyboardInfo
     public bool KeyDown(Keys key) => CurrentState.IsKeyDown(key);
 
     /// <summary>
-    ///     Returns a value that indicates if the specified keyboard key was
-    ///     just pressed.
+    ///     Returns a value that indicates whether the specified keyboard key
+    ///     was just pressed.
     /// </summary>
     /// <remarks>
     ///     "Just pressed" means the keyboard key was up on the previous frame
