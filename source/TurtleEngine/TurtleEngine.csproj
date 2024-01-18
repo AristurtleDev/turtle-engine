@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--==========================================================================
+  === Compilation Configuration
+  ===========================================================================-->
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <NeutralLanguage>en</NeutralLanguage>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!--==========================================================================
+  === This is a library, always generate a documentation file
+  === (suck it prime)
+  ===========================================================================-->
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <!--==========================================================================
+  === Contributions
+  ===========================================================================-->
+  <PropertyGroup>
+    <Copyright>Copyright © Christopher Whitley</Copyright>
+    <Authors>Christopher Whitley and contributors</Authors>
+    <Company>Aristurtle</Company>
+  </PropertyGroup>
+
+  <!--==========================================================================
+  === NuGet Package Configurations (if I ever plan to do that)
+  ===========================================================================-->
+  <PropertyGroup>
+    <PackageId>Aristurtle.TurtleEngine</PackageId>
+    <Description></Description>
+    <Version>0.0.1</Version>
+    <PackageProjectUrl>https://github.com/AristurtleDev/turtle-engine</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/AristurtleDev/turtle-engine</RepositoryUrl>
+    <RepositoryBranch>main</RepositoryBranch>
+    <PackageTags>MonoGame</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
+  </PropertyGroup>
+
+  <!--==========================================================================
+  === Code Analysis
+  ===========================================================================-->
+  <PropertyGroup>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>
+    <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
+  </PropertyGroup>
+
+  <!--==========================================================================
+  === Package References
+  ===========================================================================-->
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.DesktopGL"
+                      Version="3.8.1.303"
+                      PrivateAssets="All" />
+  </ItemGroup>
+</Project>
