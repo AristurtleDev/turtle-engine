@@ -52,53 +52,48 @@ public struct KeyboardInfo : IEquatable<KeyboardInfo>
     }
 
     /// <summary>
-    /// Returns a value that indicates whether the specified keyboard key is
-    /// currently held down.
+    /// Returns a value that indicates whether the specified key is currently
+    /// down.
     /// </summary>
-    /// <param name="key">The keyboard key to check.</param>
+    /// <param name="key">The key to check.</param>
     /// <returns>
-    /// <see langword="true"/> if the specified keyboard is is currently held
-    /// down; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the specified key is currently down;
+    /// otherwise, <see langword="false"/>. This returns <see langword="true"/>
+    /// for on every frame that the key is down.
     /// </returns>
-    public readonly bool KeyDown(Keys key)
+    public readonly bool Check(Keys key)
     {
         return CurrentState.IsKeyDown(key);
     }
 
     /// <summary>
-    /// Returns a value that indicates whether the specified keyboard key was
-    /// just pressed.
+    /// Returns a value that indicates whether the specified key was just
+    /// pressed.
     /// </summary>
-    /// <remarks>
-    /// "Just pressed" means the keyboard key was up on the previous frame and
-    /// down on the current frame.
-    /// </remarks>
-    /// <param name="key">The keyboard key to check.</param>
+    /// <param name="key">The key to check.</param>
     /// <returns>
-    /// <see langword="true"/> if the specified keyboard key was just pressed;
-    /// otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if key was just pressed; otherwise,
+    /// <see langword="false"/>. This only returns <see langword="true"/> on
+    /// the first frame the key was pressed.
     /// </returns>
-    public readonly bool KeyPressed(Keys key)
+    public readonly bool Pressed(Keys key)
     {
-        return KeyDown(key) && PreviousState.IsKeyUp(key);
+        return Check(key) && PreviousState.IsKeyUp(key);
     }
 
     /// <summary>
-    /// Returns a value that indicates whether the specified keyboard key was
-    /// just released.
+    /// Returns a value that indicates whether the specified key was just
+    /// released.
     /// </summary>
-    /// <remarks>
-    /// "Just released" means the keyboard key was down on the previous frame
-    /// and up on the current frame.
-    /// </remarks>
-    /// <param name="key">The keyboard key to check.</param>
+    /// <param name="key">The key to check.</param>
     /// <returns>
-    /// <see langword="true"/> if the specified keyboard key was just released;
-    /// otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if key was just released; otherwise,
+    /// <see langword="false"/>. This only returns <see langword="true"/> on the
+    /// first frame the key was released.
     /// </returns>
-    public readonly bool KeyReleased(Keys key)
+    public readonly bool Released(Keys key)
     {
-        return !KeyDown(key) && PreviousState.IsKeyDown(key);
+        return !Check(key) && PreviousState.IsKeyDown(key);
     }
 
     /// <inheritdoc/>
