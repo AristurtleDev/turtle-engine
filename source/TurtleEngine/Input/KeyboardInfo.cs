@@ -29,8 +29,8 @@ public struct KeyboardInfo : IEquatable<KeyboardInfo>
     /// </summary>
     public KeyboardInfo()
     {
-        PreviousState = new KeyboardState();
-        CurrentState = new KeyboardState();
+        PreviousState = default(KeyboardState);
+        CurrentState = default(KeyboardState);
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public struct KeyboardInfo : IEquatable<KeyboardInfo>
     /// <see langword="true"/> if the specified keyboard is is currently held
     /// down; otherwise, <see langword="false"/>.
     /// </returns>
-    public bool KeyDown(Keys key)
+    public readonly bool KeyDown(Keys key)
     {
         return CurrentState.IsKeyDown(key);
     }
@@ -78,7 +78,7 @@ public struct KeyboardInfo : IEquatable<KeyboardInfo>
     /// <see langword="true"/> if the specified keyboard key was just pressed;
     /// otherwise, <see langword="false"/>.
     /// </returns>
-    public bool KeyPressed(Keys key)
+    public readonly bool KeyPressed(Keys key)
     {
         return KeyDown(key) && PreviousState.IsKeyUp(key);
     }
@@ -96,7 +96,7 @@ public struct KeyboardInfo : IEquatable<KeyboardInfo>
     /// <see langword="true"/> if the specified keyboard key was just released;
     /// otherwise, <see langword="false"/>.
     /// </returns>
-    public bool KeyReleased(Keys key)
+    public readonly bool KeyReleased(Keys key)
     {
         return !KeyDown(key) && PreviousState.IsKeyDown(key);
     }
