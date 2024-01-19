@@ -2,117 +2,168 @@
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace TurtleEngine.Input;
 
 /// <summary>
-///     Represents a snapshot of the state of mouse input.
+///Represents a snapshot of the state of mouse input.
 /// </summary>
-public sealed class MouseInfo
+public struct MouseInfo : IEquatable<MouseInfo>
 {
     /// <summary>
-    ///     Gets the state of mouse input during the previous frame.
+    /// A <see cref="Microsoft.Xna.Framework.Input.MouseState"/> value that
+    /// represents the state of mouse input during the previous frame.
     /// </summary>
-    public MouseState PreviousState { get; private set; }
+    public MouseState PreviousState;
 
     /// <summary>
-    ///     Gets the state of mouse input during the current frame.
+    /// A <see cref="Microsoft.Xna.Framework.Input.MouseState"/> value that
+    /// represents the state of mouse input during the previous frame.
     /// </summary>
-    public MouseState CurrentState { get; private set; }
+    public MouseState CurrentState;
 
     /// <summary>
-    ///     Gets or Sets the screen space xy-coordinate position of the mouse.
+    /// Gets the current screen space xy-coordinate position of the mouse.
     /// </summary>
     public Point Position
     {
-        get => CurrentState.Position;
-        set => Mouse.SetPosition(value.X, value.Y);
+        get
+        {
+            return CurrentState.Position;
+        }
     }
 
     /// <summary>
-    ///     Gets or Sets the screen space x-coordinate position of the mouse.
+    /// Gets the current screen space x-coordinate position of the mouse.
     /// </summary>
     public int X
     {
-        get => Position.X;
-        set => Position = new Point(value, Position.Y);
+        get
+        {
+            return Position.X;
+        }
     }
 
     /// <summary>
-    ///     Gets or Sets the screen space y-coordinate position of the mouse.
+    /// Gets the current screen space y-coordinate position of the mouse.
     /// </summary>
     public int Y
     {
-        get => Position.Y;
-        set => Position = new Point(Position.X, value);
+        get
+        {
+            return Position.Y;
+        }
     }
 
     /// <summary>
-    ///     Gets the difference of the screen space xy-coordinate position of
-    ///     the mouse between the previous and current frames.
+    /// Gets the difference in the screen space xy-coordinate position of the
+    /// mouse between the previous and current frames.
     /// </summary>
-    public Point PositionDelta => PreviousState.Position - CurrentState.Position;
+    public Point PositionDelta
+    {
+        get
+        {
+            return PreviousState.Position - CurrentState.Position;
+        }
+    }
 
     /// <summary>
-    ///     Gets the difference of the screen space x-coordinate position of the
-    ///     mouse between the previous and current frames.
+    /// Gets the difference in the screen space x-coordinate position of the
+    /// mouse between the previous and current frames.
     /// </summary>
-    public int DeltaX => PositionDelta.X;
+    public int DeltaX
+    {
+        get
+        {
+            return PositionDelta.X;
+        }
+    }
 
     /// <summary>
-    ///     Gets the difference of the screen space y-coordinate position of the
-    ///     mouse between the previous and current frames.
+    /// Gets the difference in the screen space y-coordinate position of the
+    /// mouse between the previous and current frames.
     /// </summary>
-    public int DeltaY => PositionDelta.Y;
+    public int DeltaY
+    {
+        get
+        {
+            return PositionDelta.Y;
+        }
+    }
 
     /// <summary>
-    ///     Gets a value that indicates if the mouse has moved position between
-    ///     the previous and current frames.
+    /// Gets a value tat indicates whether the mouse moved position between the
+    /// previous and current frames.
     /// </summary>
-    public bool HasMoved => PositionDelta != Point.Zero;
+    public bool HasMoved
+    {
+        get
+        {
+            return PositionDelta != Point.Zero;
+        }
+    }
 
     /// <summary>
-    ///     Gets the value of the mouse's scroll wheel.
+    /// Gets the current value of the mouse's scroll wheel.
     /// </summary>
-    public int ScrollWheel => CurrentState.ScrollWheelValue;
+    public int ScrollWheel
+    {
+        get
+        {
+            return CurrentState.ScrollWheelValue;
+        }
+    }
 
     /// <summary>
-    ///     Gets the difference in the mouse's scroll wheel value between the
-    ///     previous and current frames.
+    /// Gets the difference in the mouse's scroll wheel value between the
+    /// previous and current frames.
     /// </summary>
-    public int ScrollWheelDelta => PreviousState.ScrollWheelValue - CurrentState.ScrollWheelValue;
+    public int ScrollWheelDelta
+    {
+        get
+        {
+            return PreviousState.ScrollWheelValue - CurrentState.ScrollWheelValue;
+        }
+    }
 
     /// <summary>
-    ///     Creates a new instance of the <see cref="MouseInfo"/> class.
+    /// Initializes a new <see cref="MouseInfo"/> value.
     /// </summary>
     public MouseInfo()
     {
-        PreviousState = new();
-        CurrentState = Mouse.GetState();
+        PreviousState = new MouseState();
+        CurrentState = new MouseState();
     }
 
     /// <summary>
-    ///     Updates the state of this instance of the <see cref="MouseInfo"/>
-    ///     class.
+    /// Initializes a new <see cref="MouseInfo"/> value with the specified
+    /// previous and current states.
     /// </summary>
-    public void Update()
-    {
-        PreviousState = CurrentState;
-        CurrentState = Mouse.GetState();
-    }
-
-    /// <summary>
-    ///     Returns a value that indicates whether the specified mouse button is
-    ///     currently held down.
-    /// </summary>
-    /// <param name="button">
-    ///     The mouse button to check.
+    /// <param name="previousState">
+    /// A <see cref="Microsoft.Xna.Framework.Input.MouseState"/> value that
+    /// represents the state of mouse input during the previous frame.
     /// </param>
+    /// <param name="currentState">
+    /// A <see cref="Microsoft.Xna.Framework.Input.MouseState"/> value that
+    /// represents the state of mouse input during the current frame.
+    /// </param>
+    public MouseInfo(MouseState previousState, MouseState currentState)
+    {
+        PreviousState = previousState;
+        CurrentState = currentState;
+    }
+
+    /// <summary>
+    /// Returns a value that indicates whether the specified mouse button is
+    /// current held down.
+    /// </summary>
+    /// <param name="button">The mouse button to check.</param>
     /// <returns>
-    ///     <see langword="true"/> if the specified mouse button is currently
-    ///     held down; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the specified mouse button is currently held
+    /// down; otherwise, <see langword="false"/>.
     /// </returns>
     public bool ButtonDown(MouseButton button)
     {
@@ -139,19 +190,17 @@ public sealed class MouseInfo
     }
 
     /// <summary>
-    ///     Returns a value that indicates whether the specified mouse button
-    ///     was just pressed.
+    /// Returns a value that indicates whether the specified mouse button was
+    /// just pressed.
     /// </summary>
     /// <remarks>
-    ///     "Just pressed" means the mouse button was released on the previous
-    ///     frame and pressed on the current frame.
+    /// "Just pressed" means the mouse button was released on the previous frame
+    /// and pressed on the current frame.
     /// </remarks>
-    /// <param name="button">
-    ///     The mouse button to check.
-    /// </param>
+    /// <param name="button">The mouse button to check.</param>
     /// <returns>
-    ///     <see langword="true"/> if the specified mouse button was just
-    ///     pressed; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the specified mouse button was just pressed;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public bool ButtonPressed(MouseButton button)
     {
@@ -183,19 +232,17 @@ public sealed class MouseInfo
     }
 
     /// <summary>
-    ///     Returns a value that indicates whether the specified mouse button
-    ///     was just released.
+    /// Returns a value that indicates whether the specified mouse button was
+    /// just released.
     /// </summary>
     /// <remarks>
-    ///     "Just released" means the mouse button was pressed on the previous
-    ///     frame and released on the current frame.
+    /// "Just released" means the mouse button was pressed on the previous frame
+    /// and released on the current frame.
     /// </remarks>
-    /// <param name="button">
-    ///     The mouse button to check.
-    /// </param>
+    /// <param name="button">The mouse button to check.</param>
     /// <returns>
-    ///     <see langword="true"/> if the specified mouse button was just
-    ///     released; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the specified mouse button was just released;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public bool ButtonReleased(MouseButton button)
     {
@@ -224,5 +271,35 @@ public sealed class MouseInfo
             default:
                 throw new InvalidOperationException($"{nameof(MouseInfo)}.{nameof(ButtonReleased)} encountered an unknown {nameof(MouseButton)}: {button}");
         }
+    }
+
+    /// <inheritdoc/>
+    public readonly bool Equals(MouseInfo other)
+    {
+        return GetHashCode() == other.GetHashCode();
+    }
+
+    /// <inheritdoc />
+    public override readonly bool Equals([NotNullWhen(true)] object? obj)
+    {
+        return obj is MouseInfo other && Equals(other);
+    }
+
+    /// <inheritdoc />
+    public override readonly int GetHashCode()
+    {
+        return HashCode.Combine(PreviousState.GetHashCode(), CurrentState.GetHashCode());
+    }
+
+    /// <inheritdoc />
+    public static bool operator ==(MouseInfo left, MouseInfo right)
+    {
+        return left.Equals(right);
+    }
+
+    /// <inheritdoc />
+    public static bool operator !=(MouseInfo left, MouseInfo right)
+    {
+        return !(left == right);
     }
 }
