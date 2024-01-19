@@ -165,7 +165,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// <see langword="true"/> if the specified mouse button is currently held
     /// down; otherwise, <see langword="false"/>.
     /// </returns>
-    public readonly bool ButtonDown(MouseButton button)
+    public readonly bool Check(MouseButton button)
     {
         switch (button)
         {
@@ -185,7 +185,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
                 return CurrentState.XButton2 == ButtonState.Pressed;
 
             default:
-                throw new InvalidOperationException($"{nameof(MouseInfo)}.{nameof(ButtonDown)} encountered an unknown {nameof(MouseButton)}: {button}");
+                throw new InvalidOperationException($"{nameof(MouseInfo)}.{nameof(Check)} encountered an unknown {nameof(MouseButton)}: {button}");
         }
     }
 
@@ -202,7 +202,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// <see langword="true"/> if the specified mouse button was just pressed;
     /// otherwise, <see langword="false"/>.
     /// </returns>
-    public readonly bool ButtonPressed(MouseButton button)
+    public readonly bool Pressed(MouseButton button)
     {
         switch (button)
         {
@@ -227,7 +227,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
                        PreviousState.XButton2 == ButtonState.Released;
 
             default:
-                throw new InvalidOperationException($"{nameof(MouseInfo)}.{nameof(ButtonPressed)} encountered an unknown {nameof(MouseButton)}: {button}");
+                throw new InvalidOperationException($"{nameof(MouseInfo)}.{nameof(Pressed)} encountered an unknown {nameof(MouseButton)}: {button}");
         }
     }
 
@@ -244,7 +244,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// <see langword="true"/> if the specified mouse button was just released;
     /// otherwise, <see langword="false"/>.
     /// </returns>
-    public readonly bool ButtonReleased(MouseButton button)
+    public readonly bool Released(MouseButton button)
     {
         switch (button)
         {
@@ -269,7 +269,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
                        PreviousState.XButton2 == ButtonState.Pressed;
 
             default:
-                throw new InvalidOperationException($"{nameof(MouseInfo)}.{nameof(ButtonReleased)} encountered an unknown {nameof(MouseButton)}: {button}");
+                throw new InvalidOperationException($"{nameof(MouseInfo)}.{nameof(Released)} encountered an unknown {nameof(MouseButton)}: {button}");
         }
     }
 
