@@ -60,7 +60,10 @@ public struct KeyboardInfo : IEquatable<KeyboardInfo>
     /// <see langword="true"/> if the specified keyboard is is currently held
     /// down; otherwise, <see langword="false"/>.
     /// </returns>
-    public bool KeyDown(Keys key) => CurrentState.IsKeyDown(key);
+    public bool KeyDown(Keys key)
+    {
+        return CurrentState.IsKeyDown(key);
+    }
 
     /// <summary>
     /// Returns a value that indicates whether the specified keyboard key was
@@ -75,7 +78,10 @@ public struct KeyboardInfo : IEquatable<KeyboardInfo>
     /// <see langword="true"/> if the specified keyboard key was just pressed;
     /// otherwise, <see langword="false"/>.
     /// </returns>
-    public bool KeyPressed(Keys key) => KeyDown(key) && PreviousState.IsKeyUp(key);
+    public bool KeyPressed(Keys key)
+    {
+        return KeyDown(key) && PreviousState.IsKeyUp(key);
+    }
 
     /// <summary>
     /// Returns a value that indicates whether the specified keyboard key was
@@ -90,7 +96,10 @@ public struct KeyboardInfo : IEquatable<KeyboardInfo>
     /// <see langword="true"/> if the specified keyboard key was just released;
     /// otherwise, <see langword="false"/>.
     /// </returns>
-    public bool KeyReleased(Keys key) => !KeyDown(key) && PreviousState.IsKeyDown(key);
+    public bool KeyReleased(Keys key)
+    {
+        return !KeyDown(key) && PreviousState.IsKeyDown(key);
+    }
 
     /// <inheritdoc/>
     public readonly bool Equals(KeyboardInfo other)
