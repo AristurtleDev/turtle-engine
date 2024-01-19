@@ -4,50 +4,36 @@
 
 namespace TurtleEngine.Input;
 
-using System.Diagnostics.CodeAnalysis;
-
 /// <summary>
-///     Defines a class that represents information about the state of input for a gamepad trigger.
+/// Represents a snapshot of the state of a gamepad trigger during the previous
+/// and current frame.
 /// </summary>
-public readonly struct GamePadTriggerInfo : IEquatable<GamePadTriggerInfo>
+public sealed class GamePadTriggerInfo
 {
-    private readonly float _previousValue;
-    private readonly float _currentValue;
+    private float _previousValue;
+    private float _currentValue;
 
-    /// <summary>
-    /// Initializes a new <see cref="GamePadTriggerInfo"/> value.
-    /// </summary>
-    public GamePadTriggerInfo()
+    internal GamePadTriggerInfo()
     {
         _previousValue = default(float);
         _currentValue = default(float);
     }
 
-    /// <summary>
-    /// Initializes a new <see cref="GamePadTriggerInfo"/> value with the
-    /// specified previous and current state values.
-    /// </summary>
-    /// <param name="previousValue">
-    /// The value of this trigger during the previous frame.
-    /// </param>
-    /// <param name="currentValue">
-    /// The value of this trigger during the current frame.
-    /// </param>
-    public GamePadTriggerInfo(float previousValue, float currentValue)
+    internal void Update(float value)
     {
-        _previousValue = previousValue;
-        _currentValue = currentValue;
+        _previousValue = _currentValue;
+        _currentValue = value;
     }
 
     /// <summary>
-    ///Returns the value of the trigger during the previous frame.
+    /// Returns the value of the trigger during the previous frame.
     /// </summary>
     /// <param name="threshold">
     /// The minimum value the trigger must reach to be considered a non-zero
     /// value.
     /// </param>
     /// <returns>The value of the trigger during the previous frame.</returns>
-    public readonly float PreviousValue(float threshold = default(float))
+    public float PreviousValue(float threshold = default(float))
     {
         if (_previousValue >= threshold)
         {
@@ -65,7 +51,7 @@ public readonly struct GamePadTriggerInfo : IEquatable<GamePadTriggerInfo>
     /// value.
     /// </param>
     /// <returns>The value of the trigger during the current frame.</returns>
-    public readonly float CurrentValue(float threshold = default(float))
+    public float CurrentValue(float threshold = default(float))
     {
         if (_currentValue >= threshold)
         {
@@ -87,7 +73,7 @@ public readonly struct GamePadTriggerInfo : IEquatable<GamePadTriggerInfo>
     /// The difference in value of the trigger between the previous and current
     /// frames.
     /// </returns>
-    public readonly float DeltaValue(float threshold = default(float))
+    public float DeltaValue(float threshold = default(float))
     {
         return PreviousValue(threshold) - CurrentValue(threshold);
     }
@@ -104,7 +90,7 @@ public readonly struct GamePadTriggerInfo : IEquatable<GamePadTriggerInfo>
     /// <see langword="true"/> if the trigger value changed between the previous
     /// and current frames; otherwise, <see langword="false"/>.
     /// </returns>
-    public readonly bool HasMoved(float threshold = default(float))
+    public bool HasMoved(float threshold = default(float))
     {
         return DeltaValue(threshold) > float.Epsilon;
     }
@@ -121,7 +107,7 @@ public readonly struct GamePadTriggerInfo : IEquatable<GamePadTriggerInfo>
     /// <see langword="false"/>.  This will return <see langword="true"/> for
     /// every frame the trigger is down.
     /// </returns>
-    public readonly bool Check(float threshold = default(float))
+    public bool Check(float threshold = default(float))
     {
         return CurrentValue(threshold) > float.Epsilon;
     }
@@ -138,7 +124,7 @@ public readonly struct GamePadTriggerInfo : IEquatable<GamePadTriggerInfo>
     /// <see langword="false"/>.  This only returns <see langword="true"/> on
     /// the first frame the trigger was pressed.
     /// </returns>
-    public readonly bool Pressed(float threshold = default(float))
+    public bool Pressed(float threshold = default(float))
     {
         return Check(threshold) && PreviousValue(threshold) < float.Epsilon;
     }
@@ -155,38 +141,8 @@ public readonly struct GamePadTriggerInfo : IEquatable<GamePadTriggerInfo>
     /// <see langword="false"/>.  This only returns <see langword="true"/> on
     /// the first frame the trigger was released.
     /// </returns>
-    public readonly bool Released(float threshold = default(float))
+    public bool Released(float threshold = default(float))
     {
         return !Check(threshold) && PreviousValue(threshold) > float.Epsilon;
-    }
-
-    /// <inheritdoc/>
-    public readonly bool Equals(GamePadTriggerInfo other)
-    {
-        return GetHashCode() == other.GetHashCode();
-    }
-
-    /// <inheritdoc />
-    public override readonly bool Equals([NotNullWhen(true)] object? obj)
-    {
-        return obj is GamePadTriggerInfo other && Equals(other);
-    }
-
-    /// <inheritdoc />
-    public override readonly int GetHashCode()
-    {
-        return HashCode.Combine(_previousValue.GetHashCode(), _currentValue.GetHashCode());
-    }
-
-    /// <inheritdoc />
-    public static bool operator ==(GamePadTriggerInfo left, GamePadTriggerInfo right)
-    {
-        return left.Equals(right);
-    }
-
-    /// <inheritdoc />
-    public static bool operator !=(GamePadTriggerInfo left, GamePadTriggerInfo right)
-    {
-        return !(left == right);
     }
 }

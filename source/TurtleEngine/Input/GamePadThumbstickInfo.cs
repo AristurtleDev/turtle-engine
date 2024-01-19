@@ -2,45 +2,31 @@
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.Xna.Framework;
 
 namespace TurtleEngine.Input;
 
 /// <summary>
-/// Represents a snapshot of the state of a thumb stick for a game pad.
+/// Represents a snapshot of the state of a gamepad thumb stick during the
+/// previous and current frames.
 /// </summary>
-public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
+public sealed class GamePadThumbStickInfo
 {
-    private readonly Vector2 _previousValue;
-    private readonly Vector2 _currentValue;
+    private Vector2 _previousValue;
+    private Vector2 _currentValue;
 
-    /// <summary>
-    /// Initializes a new <see cref="GamePadThumbStickInfo"/> value.
-    /// </summary>
-    public GamePadThumbStickInfo()
+    internal GamePadThumbStickInfo()
     {
         _previousValue = default(Vector2);
         _currentValue = default(Vector2);
     }
 
-    /// <summary>
-    /// Initializes a new <see cref="GamePadThumbStickInfo"/> value with the
-    /// specified previous and current state values.
-    /// </summary>
-    /// <param name="previousValue">
-    /// The value of this thumb stick during the previous frame.
-    /// </param>
-    /// <param name="currentValue">
-    /// The value of this thumb stick during the current frame.
-    /// </param>
-    public GamePadThumbStickInfo(Vector2 previousValue, Vector2 currentValue)
+    internal void Update(Vector2 value)
     {
-        _previousValue = previousValue;
-        _currentValue = currentValue;
+        _previousValue = _currentValue;
+        _currentValue = value;
 
         //  Flip the y-axis value
-        _previousValue.Y = -_previousValue.Y;
         _currentValue.Y = -_currentValue.Y;
     }
 
@@ -58,7 +44,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// represent the x- and y-axis values of this thumb stick during the
     /// previous frame.
     /// </returns>
-    public readonly Vector2 PreviousValue(float deadZone = 0.0f)
+    public Vector2 PreviousValue(float deadZone = 0.0f)
     {
         if (_previousValue.LengthSquared() >= deadZone * deadZone)
         {
@@ -82,7 +68,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// represent the x- and y-axis values of this thumb stick during the
     /// current frame.
     /// </returns>
-    public readonly Vector2 CurrentValue(float deadZone = 0.0f)
+    public Vector2 CurrentValue(float deadZone = 0.0f)
     {
         if (_currentValue.LengthSquared() >= deadZone * deadZone)
         {
@@ -107,7 +93,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// represent the difference in the x- and y-axis values of this thumb stick
     /// between the previous and current frames.
     /// </returns>
-    public readonly Vector2 DeltaValue(float deadZone = 0.0f)
+    public Vector2 DeltaValue(float deadZone = 0.0f)
     {
         return PreviousValue(deadZone) - CurrentValue(deadZone);
     }
@@ -124,7 +110,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// <see langword="true"/> if this thumb stick has moved between the
     /// previous and current frame; otherwise, <see langword="false"/>.
     /// </returns>
-    public readonly bool HasMoved(float deadZone = 0.0f)
+    public bool HasMoved(float deadZone = 0.0f)
     {
         return DeltaValue(deadZone) != Vector2.Zero;
     }
@@ -143,7 +129,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// <see langword="true"/> for every frame that the thumb stick is pressed
     /// upward.
     /// </returns>
-    public readonly bool CheckUp(float deadZone = 0.0f)
+    public bool CheckUp(float deadZone = 0.0f)
     {
         return CurrentValue(deadZone).Y > float.Epsilon;
     }
@@ -162,7 +148,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// <see langword="true"/> for every frame that the thumb stick is pressed
     /// downward.
     /// </returns>
-    public readonly bool CheckDown(float deadZone = 0.0f)
+    public bool CheckDown(float deadZone = 0.0f)
     {
         return CurrentValue(deadZone).Y < float.Epsilon;
     }
@@ -181,7 +167,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// <see langword="true"/> for every frame that the thumb stick is pressed
     /// to the left.
     /// </returns>
-    public readonly bool CheckLeft(float deadZone = 0.0f)
+    public bool CheckLeft(float deadZone = 0.0f)
     {
         return CurrentValue(deadZone).X < float.Epsilon;
     }
@@ -200,7 +186,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// <see langword="true"/> for every frame that the thumb stick is pressed
     /// to the right.
     /// </returns>
-    public readonly bool CheckRight(float deadZone = 0.0f)
+    public bool CheckRight(float deadZone = 0.0f)
     {
         return CurrentValue(deadZone).X > float.Epsilon;
     }
@@ -219,7 +205,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// <see langword="true"/> for the first frame the thumb stick was pressed
     /// upward.
     /// </returns>
-    public readonly bool PressedUp(float deadZone = 0.0f)
+    public bool PressedUp(float deadZone = 0.0f)
     {
         return CheckUp(deadZone) && PreviousValue(deadZone).Y <= float.Epsilon;
     }
@@ -238,7 +224,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// <see langword="true"/> for the first frame the thumb stick was pressed
     /// downward.
     /// </returns>
-    public readonly bool PressedDown(float deadZone = 0.0f)
+    public bool PressedDown(float deadZone = 0.0f)
     {
         return CheckDown(deadZone) && PreviousValue(deadZone).Y >= float.Epsilon;
     }
@@ -257,7 +243,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// <see langword="true"/> for the first frame the thumb stick was pressed
     /// to the left.
     /// </returns>
-    public readonly bool PressedLeft(float deadZone = 0.0f)
+    public bool PressedLeft(float deadZone = 0.0f)
     {
         return CheckLeft(deadZone) && PreviousValue(deadZone).X >= float.Epsilon;
     }
@@ -276,7 +262,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// <see langword="true"/> for the first frame the thumb stick was pressed
     /// to the right.
     /// </returns>
-    public readonly bool PressedRight(float deadZone = 0.0f)
+    public bool PressedRight(float deadZone = 0.0f)
     {
         return CheckRight(deadZone) && PreviousValue(deadZone).X <= float.Epsilon;
     }
@@ -295,7 +281,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// <see langword="true"/> for the first frame the thumb stick was released
     /// from being pressed upward.
     /// </returns>
-    public readonly bool ReleasedUp(float deadZone = 0.0f)
+    public bool ReleasedUp(float deadZone = 0.0f)
     {
         return !CheckUp(deadZone) && PreviousValue(deadZone).Y >= float.Epsilon;
     }
@@ -314,7 +300,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// <see langword="true"/> for the first frame the thumb stick was released
     /// from being pressed downward.
     /// </returns>
-    public readonly bool ReleasedDown(float deadZone = 0.0f)
+    public bool ReleasedDown(float deadZone = 0.0f)
     {
         return !CheckDown(deadZone) && PreviousValue(deadZone).Y <= float.Epsilon;
     }
@@ -333,7 +319,7 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// returns <see langword="true"/> for the first frame the thumb stick was
     /// released from being pressed to the left.
     /// </returns>
-    public readonly bool ReleasedLeft(float deadZone = 0.0f)
+    public bool ReleasedLeft(float deadZone = 0.0f)
     {
         return !CheckLeft(deadZone) && PreviousValue(deadZone).X <= float.Epsilon;
     }
@@ -352,38 +338,8 @@ public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
     /// returns <see langword="true"/> for the first frame the thumb stick was
     /// released from being pressed to the right.
     /// </returns>
-    public readonly bool ReleasedRight(float deadZone = 0.0f)
+    public bool ReleasedRight(float deadZone = 0.0f)
     {
         return !CheckRight(deadZone) && PreviousValue(deadZone).X >= float.Epsilon;
-    }
-
-    /// <inheritdoc/>
-    public readonly bool Equals(GamePadThumbStickInfo other)
-    {
-        return GetHashCode() == other.GetHashCode();
-    }
-
-    /// <inheritdoc />
-    public override readonly bool Equals([NotNullWhen(true)] object? obj)
-    {
-        return obj is GamePadThumbStickInfo other && Equals(other);
-    }
-
-    /// <inheritdoc />
-    public override readonly int GetHashCode()
-    {
-        return HashCode.Combine(_previousValue.GetHashCode(), _currentValue.GetHashCode());
-    }
-
-    /// <inheritdoc />
-    public static bool operator ==(GamePadThumbStickInfo left, GamePadThumbStickInfo right)
-    {
-        return left.Equals(right);
-    }
-
-    /// <inheritdoc />
-    public static bool operator !=(GamePadThumbStickInfo left, GamePadThumbStickInfo right)
-    {
-        return !(left == right);
     }
 }
