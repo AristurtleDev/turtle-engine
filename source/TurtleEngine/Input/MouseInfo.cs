@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 namespace TurtleEngine.Input;
 
 /// <summary>
-///Represents a snapshot of the state of mouse input.
+/// Represents a snapshot of the state of mouse input.
 /// </summary>
 public struct MouseInfo : IEquatable<MouseInfo>
 {
@@ -28,7 +28,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// <summary>
     /// Gets the current screen space xy-coordinate position of the mouse.
     /// </summary>
-    public Point Position
+    public readonly Point Position
     {
         get
         {
@@ -39,7 +39,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// <summary>
     /// Gets the current screen space x-coordinate position of the mouse.
     /// </summary>
-    public int X
+    public readonly int X
     {
         get
         {
@@ -50,7 +50,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// <summary>
     /// Gets the current screen space y-coordinate position of the mouse.
     /// </summary>
-    public int Y
+    public readonly int Y
     {
         get
         {
@@ -62,7 +62,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// Gets the difference in the screen space xy-coordinate position of the
     /// mouse between the previous and current frames.
     /// </summary>
-    public Point PositionDelta
+    public readonly Point PositionDelta
     {
         get
         {
@@ -74,7 +74,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// Gets the difference in the screen space x-coordinate position of the
     /// mouse between the previous and current frames.
     /// </summary>
-    public int DeltaX
+    public readonly int DeltaX
     {
         get
         {
@@ -86,7 +86,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// Gets the difference in the screen space y-coordinate position of the
     /// mouse between the previous and current frames.
     /// </summary>
-    public int DeltaY
+    public readonly int DeltaY
     {
         get
         {
@@ -98,7 +98,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// Gets a value tat indicates whether the mouse moved position between the
     /// previous and current frames.
     /// </summary>
-    public bool HasMoved
+    public readonly bool HasMoved
     {
         get
         {
@@ -109,7 +109,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// <summary>
     /// Gets the current value of the mouse's scroll wheel.
     /// </summary>
-    public int ScrollWheel
+    public readonly int ScrollWheel
     {
         get
         {
@@ -121,7 +121,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// Gets the difference in the mouse's scroll wheel value between the
     /// previous and current frames.
     /// </summary>
-    public int ScrollWheelDelta
+    public readonly int ScrollWheelDelta
     {
         get
         {
@@ -165,7 +165,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// <see langword="true"/> if the specified mouse button is currently held
     /// down; otherwise, <see langword="false"/>.
     /// </returns>
-    public bool ButtonDown(MouseButton button)
+    public readonly bool ButtonDown(MouseButton button)
     {
         switch (button)
         {
@@ -202,7 +202,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// <see langword="true"/> if the specified mouse button was just pressed;
     /// otherwise, <see langword="false"/>.
     /// </returns>
-    public bool ButtonPressed(MouseButton button)
+    public readonly bool ButtonPressed(MouseButton button)
     {
         switch (button)
         {
@@ -244,7 +244,7 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// <see langword="true"/> if the specified mouse button was just released;
     /// otherwise, <see langword="false"/>.
     /// </returns>
-    public bool ButtonReleased(MouseButton button)
+    public readonly bool ButtonReleased(MouseButton button)
     {
         switch (button)
         {
