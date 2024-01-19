@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 namespace TurtleEngine.Input;
 
 /// <summary>
-///     Represents a snapshot of the state of keyboard input.
+/// Represents a snapshot of the state of keyboard input.
 /// </summary>
 public struct KeyboardInfo : IEquatable<KeyboardInfo>
 {
