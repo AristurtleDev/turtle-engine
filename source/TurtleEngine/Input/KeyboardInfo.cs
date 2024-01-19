@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Xna.Framework.Input;
 
 namespace TurtleEngine.Input;
@@ -9,81 +10,115 @@ namespace TurtleEngine.Input;
 /// <summary>
 ///     Represents a snapshot of the state of keyboard input.
 /// </summary>
-public sealed class KeyboardInfo
+public struct KeyboardInfo : IEquatable<KeyboardInfo>
 {
     /// <summary>
-    ///     Gets the state of keyboard input during the previous frame.
+    /// A <see cref="Microsoft.Xna.Framework.Input.KeyboardState"/> value that
+    /// represents the state of keyboard input during the previous frame.
     /// </summary>
-    public KeyboardState PreviousState { get; private set; }
+    public KeyboardState PreviousState;
 
     /// <summary>
-    ///     Gets the state of keyboard input during the current frame.
+    /// A <see cref="Microsoft.Xna.Framework.Input.KeyboardState"/> value that
+    /// represents the state of keyboard input during the current frame.
     /// </summary>
-    public KeyboardState CurrentState { get; private set; }
+    public KeyboardState CurrentState;
 
     /// <summary>
-    ///     Creates a new instance of the <see cref="KeyboardInfo"/> class.
+    /// Initializes a new <see cref="KeyboardInfo"/> value.
     /// </summary>
     public KeyboardInfo()
     {
-        PreviousState = new();
-        CurrentState = Keyboard.GetState();
+        PreviousState = new KeyboardState();
+        CurrentState = new KeyboardState();
     }
 
     /// <summary>
-    ///     Updates the state of this instance of the <see cref="KeyboardInfo"/>
-    ///     class.
+    /// Initializes a new <see cref="KeyboardInfo"/> value with the specified
+    /// previous and current states.
     /// </summary>
-    public void Update()
-    {
-        PreviousState = CurrentState;
-        CurrentState = Keyboard.GetState();
-    }
-
-    /// <summary>
-    ///     Returns a value that indicates whether the specified keyboard key is
-    ///     currently held down.
-    /// </summary>
-    /// <param name="key">
-    ///     The keyboard key to check.
+    /// <param name="previousState">
+    /// A <see cref="Microsoft.Xna.Framework.Input.KeyboardState"/> value that
+    /// represents the state of keyboard input during the previous frame.
     /// </param>
+    /// <param name="currentState">
+    /// A <see cref="Microsoft.Xna.Framework.Input.KeyboardState"/> value that
+    /// represents the state of keyboard input during the previous frame.
+    /// </param>
+    public KeyboardInfo(KeyboardState previousState, KeyboardState currentState)
+    {
+        PreviousState = previousState;
+        CurrentState = currentState;
+    }
+
+    /// <summary>
+    /// Returns a value that indicates whether the specified keyboard key is
+    /// currently held down.
+    /// </summary>
+    /// <param name="key">The keyboard key to check.</param>
     /// <returns>
-    ///     <see langword="true"/> if the specified keyboard is is currently
-    ///     held down; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the specified keyboard is is currently held
+    /// down; otherwise, <see langword="false"/>.
     /// </returns>
     public bool KeyDown(Keys key) => CurrentState.IsKeyDown(key);
 
     /// <summary>
-    ///     Returns a value that indicates whether the specified keyboard key
-    ///     was just pressed.
+    /// Returns a value that indicates whether the specified keyboard key was
+    /// just pressed.
     /// </summary>
     /// <remarks>
-    ///     "Just pressed" means the keyboard key was up on the previous frame
-    ///     and down on the current frame.
+    /// "Just pressed" means the keyboard key was up on the previous frame and
+    /// down on the current frame.
     /// </remarks>
-    /// <param name="key">
-    ///     The keyboard key to check.
-    /// </param>
+    /// <param name="key">The keyboard key to check.</param>
     /// <returns>
-    ///     <see langword="true"/> if the specified keyboard key was just
-    ///     pressed; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the specified keyboard key was just pressed;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public bool KeyPressed(Keys key) => KeyDown(key) && PreviousState.IsKeyUp(key);
 
     /// <summary>
-    ///     Returns a value that indicates whether the specified keyboard key
-    ///     was just released.
+    /// Returns a value that indicates whether the specified keyboard key was
+    /// just released.
     /// </summary>
     /// <remarks>
-    ///     "Just released" means the keyboard key was down on the previous
-    ///     frame and up on the current frame.
+    /// "Just released" means the keyboard key was down on the previous frame
+    /// and up on the current frame.
     /// </remarks>
-    /// <param name="key">
-    ///     The keyboard key to check.
-    /// </param>
+    /// <param name="key">The keyboard key to check.</param>
     /// <returns>
-    ///     <see langword="true"/> if the specified keyboard key was just
-    ///     released; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the specified keyboard key was just released;
+    /// otherwise, <see langword="false"/>.
     /// </returns>
     public bool KeyReleased(Keys key) => !KeyDown(key) && PreviousState.IsKeyDown(key);
+
+    /// <inheritdoc/>
+    public readonly bool Equals(KeyboardInfo other)
+    {
+        return GetHashCode() == other.GetHashCode();
+    }
+
+    /// <inheritdoc />
+    public override readonly bool Equals([NotNullWhen(true)] object? obj)
+    {
+        return obj is KeyboardInfo other && Equals(other);
+    }
+
+    /// <inheritdoc />
+    public override readonly int GetHashCode()
+    {
+        return HashCode.Combine(PreviousState.GetHashCode(), CurrentState.GetHashCode());
+    }
+
+    /// <inheritdoc />
+    public static bool operator ==(KeyboardInfo left, KeyboardInfo right)
+    {
+        return left.Equals(right);
+    }
+
+    /// <inheritdoc />
+    public static bool operator !=(KeyboardInfo left, KeyboardInfo right)
+    {
+        return !(left == right);
+    }
 }
