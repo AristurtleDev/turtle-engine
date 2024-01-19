@@ -157,13 +157,14 @@ public struct MouseInfo : IEquatable<MouseInfo>
     }
 
     /// <summary>
-    /// Returns a value that indicates whether the specified mouse button is
-    /// current held down.
+    /// Returns a value that indicates whether the specified button is currently
+    /// down.
     /// </summary>
     /// <param name="button">The mouse button to check.</param>
     /// <returns>
-    /// <see langword="true"/> if the specified mouse button is currently held
-    /// down; otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the specified button is currently down;
+    /// otherwise, <see langword="false"/>.  This returns <see langword="true"/>
+    /// for every frame the button is down.
     /// </returns>
     public readonly bool Check(MouseButton button)
     {
@@ -190,17 +191,14 @@ public struct MouseInfo : IEquatable<MouseInfo>
     }
 
     /// <summary>
-    /// Returns a value that indicates whether the specified mouse button was
-    /// just pressed.
+    /// Returns a value that indicates whether the specified button was just
+    /// pressed.
     /// </summary>
-    /// <remarks>
-    /// "Just pressed" means the mouse button was released on the previous frame
-    /// and pressed on the current frame.
-    /// </remarks>
     /// <param name="button">The mouse button to check.</param>
     /// <returns>
-    /// <see langword="true"/> if the specified mouse button was just pressed;
-    /// otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the specified button was just pressed;
+    /// otherwise, <see langword="false"/>.  This only returns
+    /// <see langword="true"/> on the first frame the button was pressed.
     /// </returns>
     public readonly bool Pressed(MouseButton button)
     {
@@ -232,17 +230,14 @@ public struct MouseInfo : IEquatable<MouseInfo>
     }
 
     /// <summary>
-    /// Returns a value that indicates whether the specified mouse button was
-    /// just released.
+    /// Returns a value that indicates whether the specified button was just
+    /// released.
     /// </summary>
-    /// <remarks>
-    /// "Just released" means the mouse button was pressed on the previous frame
-    /// and released on the current frame.
-    /// </remarks>
-    /// <param name="button">The mouse button to check.</param>
+    /// <param name="button">The button to check.</param>
     /// <returns>
-    /// <see langword="true"/> if the specified mouse button was just released;
-    /// otherwise, <see langword="false"/>.
+    /// <see langword="true"/> if the specified button was just released;
+    /// otherwise, <see langword="false"/>.  This only returns
+    /// <see langword="true"/> on the first frame the button was released.
     /// </returns>
     public readonly bool Released(MouseButton button)
     {
