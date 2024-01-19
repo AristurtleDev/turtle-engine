@@ -28,6 +28,12 @@ public sealed class KeyboardInfo
         CurrentState = default(KeyboardState);
     }
 
+    internal void Update()
+    {
+        PreviousState = CurrentState;
+        CurrentState = Keyboard.GetState();
+    }
+
     /// <summary>
     /// Returns a value that indicates whether the specified key is currently
     /// down.
