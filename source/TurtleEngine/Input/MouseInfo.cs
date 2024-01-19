@@ -16,12 +16,12 @@ public sealed class MouseInfo
     /// <summary>
     /// Gets the state of mouse input during the previous frame.
     /// </summary>
-    public MouseState PreviousState { get; private set; }
+    public MouseState PreviousState;
 
     /// <summary>
     /// Gets the state of mouse input during the current frame.
     /// </summary>
-    public MouseState CurrentState { get; private set; }
+    public MouseState CurrentState;
 
     /// <summary>
     /// Gets or Sets the screen space xy-coordinate position of the mouse.
@@ -152,6 +152,34 @@ public sealed class MouseInfo
     {
         PreviousState = CurrentState;
         CurrentState = Mouse.GetState();
+    }
+
+    /// <summary>
+    /// Gets the current screen space xy-coordinate position of the mouse.
+    /// </summary>
+    /// <returns>
+    /// The current screen space xy-coordinate position of the mouse.
+    /// </returns>
+    public Point GetPosition()
+    {
+        return CurrentState.Position;
+    }
+
+    /// <summary>
+    /// Gets the current xy-coordinate position of the mouse converted to the
+    /// coordinate system specified by the provided translation matrix.
+    /// </summary>
+    /// <param name="translationMatrix">
+    /// The matrix to translate the screen space xy-coordinate position of the
+    /// mouse to the coordinate system needed.
+    /// </param>
+    /// <returns>
+    /// The current xy-coordinate position of the mouse in the coordinate system
+    /// specified by the provided translation matrix.
+    /// </returns>
+    public Point GetPosition(Matrix translationMatrix)
+    {
+        return Vector2.Transform(CurrentState.Position.ToVector2(), translationMatrix).ToPoint();
     }
 
     /// <summary>

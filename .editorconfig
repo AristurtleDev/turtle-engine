@@ -473,6 +473,6 @@ dotnet_diagnostic.CA1027.severity = none
 ### Do not declare visible instance fields
 ### https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1051
 ###
-### Rule is still active, but explicitly disabled for structs
+### This is game dev, we're using instance fields, get over it
 ################################################################################
-dotnet_code_quality.ca1051.exclude_structs = true
+dotnet_diagnostic.CA1051.severity = none
