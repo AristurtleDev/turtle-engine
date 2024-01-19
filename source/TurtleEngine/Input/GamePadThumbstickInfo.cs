@@ -10,7 +10,7 @@ namespace TurtleEngine.Input;
 /// <summary>
 /// Represents a snapshot of the state of a thumb stick for a game pad.
 /// </summary>
-public struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
+public readonly struct GamePadThumbStickInfo : IEquatable<GamePadThumbStickInfo>
 {
     private readonly Vector2 _previousValue;
     private readonly Vector2 _currentValue;
