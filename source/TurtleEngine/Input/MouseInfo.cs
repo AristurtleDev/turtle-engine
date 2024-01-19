@@ -134,8 +134,8 @@ public struct MouseInfo : IEquatable<MouseInfo>
     /// </summary>
     public MouseInfo()
     {
-        PreviousState = new MouseState();
-        CurrentState = new MouseState();
+        PreviousState = default(MouseState);
+        CurrentState = default(MouseState);
     }
 
     /// <summary>
