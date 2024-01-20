@@ -13,14 +13,14 @@ namespace TurtleEngine.Input;
 public sealed class KeyboardInfo
 {
     /// <summary>
-    /// Gets the state of keyboard input during the previous frame.
+    /// The state of keyboard input during the previous frame.
     /// </summary>
-    public KeyboardState PreviousState { get; private set; }
+    public KeyboardState PreviousState;
 
     /// <summary>
-    /// Gets the state of keyboard input during the current frame.
+    /// The state of keyboard input during the current frame.
     /// </summary>
-    public KeyboardState CurrentState { get; private set; }
+    public KeyboardState CurrentState;
 
     internal KeyboardInfo()
     {

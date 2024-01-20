@@ -23,44 +23,44 @@ public sealed class GamePadInfo
     private TimeSpan _rightTriggerMotorTimeRemaining = TimeSpan.Zero;
 
     /// <summary>
-    /// Gets the index of the player this gamepad is for.
+    /// The index of the player this gamepad is for.
     /// </summary>
-    public PlayerIndex PlayerIndex { get; }
+    public readonly PlayerIndex PlayerIndex;
 
     /// <summary>
-    /// Gets the state of this gamepad during the previous frame.
+    /// The state of this gamepad during the previous frame.
     /// </summary>
-    public GamePadState PreviousState { get; private set; }
+    public GamePadState PreviousState;
 
     /// <summary>
-    /// Gets the state of this gamepad during the current frame.
+    /// The state of this gamepad during the current frame.
     /// </summary>
-    public GamePadState CurrentState { get; private set; }
+    public GamePadState CurrentState;
 
     /// <summary>
     /// Gets a value that defines whether this gamepad is attached.
     /// </summary>
-    public bool IsAttached { get; private set; }
+    public bool IsAttached => CurrentState.IsConnected;
 
     /// <summary>
-    /// Gets the state of the left thumb stick for this gamepad.
+    /// The state of the left thumb stick for this gamepad.
     /// </summary>
-    public GamePadThumbStickInfo LeftThumbstick { get; private set; }
+    public readonly GamePadThumbStickInfo LeftThumbstick;
 
     /// <summary>
-    /// Gets the state of the right thumbstick for this gamepad.
+    /// The state of the right thumbstick for this gamepad.
     /// </summary>
-    public GamePadThumbStickInfo RightThumbstick { get; private set; }
+    public readonly GamePadThumbStickInfo RightThumbstick;
 
     /// <summary>
-    /// Gets the state of the left trigger for this gamepad.
+    /// The state of the left trigger for this gamepad.
     /// </summary>
-    public GamePadTriggerInfo LeftTrigger { get; private set; }
+    public readonly GamePadTriggerInfo LeftTrigger;
 
     /// <summary>
-    /// Gets the state of the right trigger for this gamepad.
+    /// The state of the right trigger for this gamepad.
     /// </summary>
-    public GamePadTriggerInfo RightTrigger { get; private set; }
+    public readonly GamePadTriggerInfo RightTrigger;
 
     internal GamePadInfo(PlayerIndex playerIndex)
     {
@@ -81,7 +81,6 @@ public sealed class GamePadInfo
         RightThumbstick.Update(CurrentState.ThumbSticks.Right);
         LeftTrigger.Update(CurrentState.Triggers.Left);
         RightTrigger.Update(CurrentState.Triggers.Right);
-        IsAttached = CurrentState.IsConnected;
         UpdateVibration(gameTime);
     }
 
