@@ -7,32 +7,32 @@ using Microsoft.Xna.Framework;
 namespace TurtleEngine.Input;
 
 /// <summary>
-/// Represents the state of input for connected keyboard, mouse, and gamepads.
+///     Represents the state of input for connected keyboard, mouse, and gamepads.
 /// </summary>
 public sealed class TurtleInput
 {
     /// <summary>
-    /// Gets or Sets a value that indicates whether input is enabled.
+    /// Indicates whether input is enabled.
     /// </summary>
     public bool Enabled;
 
     /// <summary>
-    /// Gets the information representing the state of keyboard input.
+    ///     The information representing the state of keyboard input.
     /// </summary>
     public KeyboardInfo Keyboard;
 
     /// <summary>
-    /// Gets the information representing the state of mouse input.
+    ///     The information representing the state of mouse input.
     /// </summary>
     public MouseInfo Mouse;
 
     /// <summary>
-    /// Gets the information representing the state of gamepad input.
+    ///     The information representing the state of gamepad input.
     /// </summary>
     public GamePadInfo[] GamePads;
 
     /// <summary>
-    /// Creates a new instance of the <see cref="TurtleInput"/> class.
+    ///     Creates a new instance of the <see cref="TurtleInput"/> class.
     /// </summary>
     public TurtleInput()
     {
@@ -46,10 +46,10 @@ public sealed class TurtleInput
     }
 
     /// <summary>
-    /// Updates the internal state values.
+    ///     Updates the internal state values.
     /// </summary>
     /// <param name="gameTime">
-    /// A snapshot of the timing values for the current frame.
+    ///     A snapshot of the timing values for the current frame.
     /// </param>
     public void Update(GameTime gameTime)
     {

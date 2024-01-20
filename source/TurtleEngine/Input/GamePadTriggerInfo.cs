@@ -5,8 +5,7 @@
 namespace TurtleEngine.Input;
 
 /// <summary>
-/// Represents a snapshot of the state of a gamepad trigger during the previous
-/// and current frame.
+///     Represents a snapshot of the state of a gamepad trigger during the previous and current frame.
 /// </summary>
 public sealed class GamePadTriggerInfo
 {
@@ -26,13 +25,14 @@ public sealed class GamePadTriggerInfo
     }
 
     /// <summary>
-    /// Returns the value of the trigger during the previous frame.
+    ///     Returns the value of the trigger during the previous frame.
     /// </summary>
     /// <param name="threshold">
-    /// The minimum value the trigger must reach to be considered a non-zero
-    /// value.
+    ///     The minimum value the trigger must reach to be considered a non-zero value.
     /// </param>
-    /// <returns>The value of the trigger during the previous frame.</returns>
+    /// <returns>
+    ///     The value of the trigger during the previous frame.
+    /// </returns>
     public float PreviousValue(float threshold = default(float))
     {
         if (_previousValue >= threshold)
@@ -44,13 +44,14 @@ public sealed class GamePadTriggerInfo
     }
 
     /// <summary>
-    /// Returns the value of the trigger during the current frame.
+    ///     Returns the value of the trigger during the current frame.
     /// </summary>
     /// <param name="threshold">
-    /// The minimum value the trigger must reach to be considered a non-zero
-    /// value.
+    ///     The minimum value the trigger must reach to be considered a non-zero value.
     /// </param>
-    /// <returns>The value of the trigger during the current frame.</returns>
+    /// <returns>
+    ///     The value of the trigger during the current frame.
+    /// </returns>
     public float CurrentValue(float threshold = default(float))
     {
         if (_currentValue >= threshold)
@@ -62,16 +63,13 @@ public sealed class GamePadTriggerInfo
     }
 
     /// <summary>
-    /// Returns the difference in value of the trigger between the previous and
-    /// current frames.
+    ///     Returns the difference in value of the trigger between the previous and current frames.
     /// </summary>
     /// <param name="threshold">
-    /// The minimum threshold the trigger must reach to be considered a non-zero
-    /// value.
+    ///     The minimum threshold the trigger must reach to be considered a non-zero value.
     /// </param>
     /// <returns>
-    /// The difference in value of the trigger between the previous and current
-    /// frames.
+    ///     The difference in value of the trigger between the previous and current frames.
     /// </returns>
     public float DeltaValue(float threshold = default(float))
     {
@@ -79,16 +77,14 @@ public sealed class GamePadTriggerInfo
     }
 
     /// <summary>
-    /// Returns a value that indicates whether the trigger value changed between
-    /// the previous and current frames.
+    ///     Returns a value that indicates whether the trigger value changed between the previous and current frames.
     /// </summary>
     /// <param name="threshold">
-    /// The minimum value the trigger must reach to be considered a non-zero
-    /// value.
+    ///     The minimum value the trigger must reach to be considered a non-zero value.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> if the trigger value changed between the previous
-    /// and current frames; otherwise, <see langword="false"/>.
+    ///     <see langword="true"/> if the trigger value changed between the previous and current frames; otherwise,
+    ///     <see langword="false"/>.
     /// </returns>
     public bool HasMoved(float threshold = default(float))
     {
@@ -96,16 +92,14 @@ public sealed class GamePadTriggerInfo
     }
 
     /// <summary>
-    /// Returns a value that indicates whether the trigger is current down.
+    ///     Returns a value that indicates whether the trigger is current down.
     /// </summary>
     /// <param name="threshold">
-    /// The minimum value the trigger must reach to be considered a non-zero
-    /// value.
+    ///     The minimum value the trigger must reach to be considered a non-zero value.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> if the trigger is currently down; otherwise,
-    /// <see langword="false"/>.  This will return <see langword="true"/> for
-    /// every frame the trigger is down.
+    ///     <see langword="true"/> if the trigger is currently down; otherwise, <see langword="false"/>.  This will
+    ///     return <see langword="true"/> for every frame the trigger is down.
     /// </returns>
     public bool Check(float threshold = default(float))
     {
@@ -113,16 +107,14 @@ public sealed class GamePadTriggerInfo
     }
 
     /// <summary>
-    /// Returns a value that indicates whether the trigger was just pressed
+    ///     Returns a value that indicates whether the trigger was just pressed
     /// </summary>
     /// <param name="threshold">
-    /// The minimum value the trigger must reach to be considered a non-zero
-    /// value.
+    ///     The minimum value the trigger must reach to be considered a non-zero value.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> if the trigger was just pressed; otherwise,
-    /// <see langword="false"/>.  This only returns <see langword="true"/> on
-    /// the first frame the trigger was pressed.
+    ///     <see langword="true"/> if the trigger was just pressed; otherwise, <see langword="false"/>.  This only
+    ///     returns <see langword="true"/> on the first frame the trigger was pressed.
     /// </returns>
     public bool Pressed(float threshold = default(float))
     {
@@ -130,16 +122,14 @@ public sealed class GamePadTriggerInfo
     }
 
     /// <summary>
-    /// Returns a value that indicates whether the trigger was just released
+    ///     Returns a value that indicates whether the trigger was just released
     /// </summary>
     /// <param name="threshold">
-    /// The minimum value the trigger must reach to be considered a non-zero
-    /// value.
+    ///     The minimum value the trigger must reach to be considered a non-zero value.
     /// </param>
     /// <returns>
-    /// <see langword="true"/> if the trigger was just released; otherwise,
-    /// <see langword="false"/>.  This only returns <see langword="true"/> on
-    /// the first frame the trigger was released.
+    ///     <see langword="true"/> if the trigger was just released; otherwise, <see langword="false"/>.  This only
+    ///     returns <see langword="true"/> on the first frame the trigger was released.
     /// </returns>
     public bool Released(float threshold = default(float))
     {

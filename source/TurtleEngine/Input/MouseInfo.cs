@@ -8,41 +8,38 @@ using Microsoft.Xna.Framework.Input;
 namespace TurtleEngine.Input;
 
 /// <summary>
-/// Represents a snapshot of the state of mouse input during the previous and
-/// current frame.
+///     Represents a snapshot of the state of mouse input during the previous and current frame.
 /// </summary>
 public sealed class MouseInfo
 {
     /// <summary>
-    /// The state of mouse input during the previous frame.
+    ///     The state of mouse input during the previous frame.
     /// </summary>
     public MouseState PreviousState;
 
     /// <summary>
-    /// The state of mouse input during the current frame.
+    ///     The state of mouse input during the current frame.
     /// </summary>
     public MouseState CurrentState;
 
     /// <summary>
-    /// Gets the difference in the screen space xy-coordinate position of the
-    /// mouse between the previous and current frames.
+    ///     Gets the difference in the screen space xy-coordinate position of the mouse between the previous and current
+    ///     frames.
     /// </summary>
     public Point PositionDelta => PreviousState.Position - CurrentState.Position;
 
     /// <summary>
-    /// Gets a value tat indicates whether the mouse moved position between the
-    /// previous and current frames.
+    ///     Gets a value tat indicates whether the mouse moved position between the previous and current frames.
     /// </summary>
     public bool HasMoved => PositionDelta != Point.Zero;
 
     /// <summary>
-    /// Gets the current value of the mouse's scroll wheel.
+    ///     Gets the current value of the mouse's scroll wheel.
     /// </summary>
     public int ScrollWheel => CurrentState.ScrollWheelValue;
 
     /// <summary>
-    /// Gets the difference in the mouse's scroll wheel value between the
-    /// previous and current frames.
+    ///     Gets the difference in the mouse's scroll wheel value between the previous and current frames.
     /// </summary>
     public int ScrollWheelDelta => PreviousState.ScrollWheelValue - CurrentState.ScrollWheelValue;
 
@@ -53,7 +50,7 @@ public sealed class MouseInfo
     }
 
     /// <summary>
-    /// Updates the internal state values.
+    ///     Updates the internal state values.
     /// </summary>
     public void Update()
     {
@@ -62,65 +59,61 @@ public sealed class MouseInfo
     }
 
     /// <summary>
-    /// Gets the screen space xy-coordinate position of the mouse during the
-    /// previous frame.
+    ///     Gets the screen space xy-coordinate position of the mouse during the previous frame.
     /// </summary>
     /// <returns>
-    /// The screen space xy-coordinate position of the mouse during the previous
-    /// frame.
+    ///     The screen space xy-coordinate position of the mouse during the previous frame.
     /// </returns>
     public Point GetPreviousPosition() => PreviousState.Position;
 
     /// <summary>
-    /// Gets the xy-coordinate position of the mouse during the previous frame
-    /// converted to the coordinate system specified by the provided translation
-    /// matrix.
+    ///     Gets the xy-coordinate position of the mouse during the previous frame converted to the coordinate system
+    ///     specified by the provided translation matrix.
     /// </summary>
     /// <param name="translationMatrix">
-    /// The matrix to translate the screen space xy-coordinate position of the
-    /// mouse to the coordinate system needed.
+    ///     The matrix to translate the screen space xy-coordinate position of the mouse to the coordinate system
+    ///     needed.
     /// </param>
     /// <returns>
-    /// The xy-coordinate position of the mouse during the previous frame in the
-    /// coordinate system specified by the provided translation matrix.
+    ///     he xy-coordinate position of the mouse during the previous frame in the coordinate system specified by the
+    ///     provided translation matrix.
     /// </returns>
     public Point GetPreviousPosition(Matrix translationMatrix) =>
         Vector2.Transform(PreviousState.Position.ToVector2(), translationMatrix).ToPoint();
 
 
     /// <summary>
-    /// Gets the current screen space xy-coordinate position of the mouse.
+    ///     Gets the current screen space xy-coordinate position of the mouse.
     /// </summary>
     /// <returns>
-    /// The current screen space xy-coordinate position of the mouse.
+    ///     The current screen space xy-coordinate position of the mouse.
     /// </returns>
     public Point GetPosition() => CurrentState.Position;
 
     /// <summary>
-    /// Gets the current xy-coordinate position of the mouse converted to the
-    /// coordinate system specified by the provided translation matrix.
+    ///     Gets the current xy-coordinate position of the mouse converted to the coordinate system specified by the
+    ///     provided translation matrix.
     /// </summary>
     /// <param name="translationMatrix">
-    /// The matrix to translate the screen space xy-coordinate position of the
-    /// mouse to the coordinate system needed.
+    ///     The matrix to translate the screen space xy-coordinate position of the mouse to the coordinate system
+    ///     needed.
     /// </param>
     /// <returns>
-    /// The current xy-coordinate position of the mouse in the coordinate system
-    /// specified by the provided translation matrix.
+    ///     The current xy-coordinate position of the mouse in the coordinate system specified by the provided
+    ///     translation matrix.
     /// </returns>
     public Point GetPosition(Matrix translationMatrix) =>
          Vector2.Transform(CurrentState.Position.ToVector2(), translationMatrix).ToPoint();
 
 
     /// <summary>
-    /// Sets the screen space xy-coordinate position of the mouse.
+    ///     Sets the screen space xy-coordinate position of the mouse.
     /// </summary>
     /// <param name="position">
-    /// The xy-coordinate position in screen space to set the mouse to.
+    /// T   he xy-coordinate position in screen space to set the mouse to.
     /// </param>
     /// <param name="updateState">
-    /// When <see langword="true"/>, updates the <see cref="CurrentState"/> for
-    /// this frame.
+    ///     When <see langword="true"/>, updates the <see cref="CurrentState"/> for this frame.
     /// </param>
     public void SetPosition(Point position, bool updateState = true)
     {
@@ -133,20 +126,17 @@ public sealed class MouseInfo
     }
 
     /// <summary>
-    /// Sets the screen space xy-coordinate position of the mouse based on the
-    /// given position in a coordinate system and a translation matrix to that
-    /// is used to translate from that coordinate system to screen space.
+    ///     Sets the screen space xy-coordinate position of the mouse based on the given position in a coordinate system
+    ///     and a translation matrix to that is used to translate from that coordinate system to screen space.
     /// </summary>
     /// <param name="position">
-    /// The xy-coordinate position in a non-screen space coordinate system.
+    ///     The xy-coordinate position in a non-screen space coordinate system.
     /// </param>
     /// <param name="translationMatrix">
-    /// The matrix to use for translating between the coordinate system of the
-    /// given position to screen space.
+    ///     The matrix to use for translating between the coordinate system of the given position to screen space.
     /// </param>
     /// <param name="updateState">
-    /// When <see langword="true"/>, updates the <see cref="CurrentState"/> for
-    /// this frame.
+    ///     When <see langword="true"/>, updates the <see cref="CurrentState"/> for this frame.
     /// </param>
     public void SetPosition(Point position, Matrix translationMatrix, bool updateState)
     {
@@ -160,14 +150,14 @@ public sealed class MouseInfo
     }
 
     /// <summary>
-    /// Returns a value that indicates whether the specified button is currently
-    /// down.
+    ///     Returns a value that indicates whether the specified button is currently down.
     /// </summary>
-    /// <param name="button">The mouse button to check.</param>
+    /// <param name="button">
+    ///     The mouse button to check.
+    /// </param>
     /// <returns>
-    /// <see langword="true"/> if the specified button is currently down;
-    /// otherwise, <see langword="false"/>.  This returns <see langword="true"/>
-    /// for every frame the button is down.
+    ///     <see langword="true"/> if the specified button is currently down; otherwise, <see langword="false"/>.
+    ///     This returns <see langword="true"/> or every frame the button is down.
     /// </returns>
     public bool Check(MouseButton button) => button switch
     {
@@ -181,14 +171,14 @@ public sealed class MouseInfo
 
 
     /// <summary>
-    /// Returns a value that indicates whether the specified button was just
-    /// pressed.
+    ///     Returns a value that indicates whether the specified button was just pressed.
     /// </summary>
-    /// <param name="button">The mouse button to check.</param>
+    /// <param name="button">
+    ///     The mouse button to check.
+    /// </param>
     /// <returns>
-    /// <see langword="true"/> if the specified button was just pressed;
-    /// otherwise, <see langword="false"/>.  This only returns
-    /// <see langword="true"/> on the first frame the button was pressed.
+    ///     <see langword="true"/> if the specified button was just pressed; otherwise, <see langword="false"/>.
+    ///     This only returns see langword="true"/> on the first frame the button was pressed.
     /// </returns>
     public bool Pressed(MouseButton button) => button switch
     {
@@ -212,14 +202,14 @@ public sealed class MouseInfo
 
 
     /// <summary>
-    /// Returns a value that indicates whether the specified button was just
-    /// released.
+    ///     Returns a value that indicates whether the specified button was just released.
     /// </summary>
-    /// <param name="button">The button to check.</param>
+    /// <param name="button">
+    ///     The button to check.
+    /// </param>
     /// <returns>
-    /// <see langword="true"/> if the specified button was just released;
-    /// otherwise, <see langword="false"/>.  This only returns
-    /// <see langword="true"/> on the first frame the button was released.
+    ///     <see langword="true"/> if the specified button was just released; otherwise, <see langword="false"/>.
+    ///     This only returns <see langword="true"/> on the first frame the button was released.
     /// </returns>
     public bool Released(MouseButton button) => button switch
     {
@@ -240,5 +230,4 @@ public sealed class MouseInfo
 
         _ => throw new InvalidOperationException($"{nameof(MouseInfo)}.{nameof(Released)} encountered an unknown {nameof(MouseButton)}: {button}"),
     };
-
 }

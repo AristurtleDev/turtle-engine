@@ -7,18 +7,17 @@ using Microsoft.Xna.Framework.Input;
 namespace TurtleEngine.Input;
 
 /// <summary>
-/// Represents a snapshot of the state of keyboard input during the previous and
-/// current frame.
+///     Represents a snapshot of the state of keyboard input during the previous and current frame.
 /// </summary>
 public sealed class KeyboardInfo
 {
     /// <summary>
-    /// The state of keyboard input during the previous frame.
+    ///     The state of keyboard input during the previous frame.
     /// </summary>
     public KeyboardState PreviousState;
 
     /// <summary>
-    /// The state of keyboard input during the current frame.
+    ///     The state of keyboard input during the current frame.
     /// </summary>
     public KeyboardState CurrentState;
 
@@ -35,14 +34,14 @@ public sealed class KeyboardInfo
     }
 
     /// <summary>
-    /// Returns a value that indicates whether the specified key is currently
-    /// down.
+    ///     Returns a value that indicates whether the specified key is currently down.
     /// </summary>
-    /// <param name="key">The key to check.</param>
+    /// <param name="key">
+    ///     The key to check.
+    /// </param>
     /// <returns>
-    /// <see langword="true"/> if the specified key is currently down;
-    /// otherwise, <see langword="false"/>. This returns <see langword="true"/>
-    /// for on every frame that the key is down.
+    ///     <see langword="true"/> if the specified key is currently down; otherwise, <see langword="false"/>.
+    ///     This returns <see langword="true"/> for on every frame that the key is down.
     /// </returns>
     public bool Check(Keys key)
     {
@@ -50,14 +49,14 @@ public sealed class KeyboardInfo
     }
 
     /// <summary>
-    /// Returns a value that indicates whether the specified key was just
-    /// pressed.
+    ///     Returns a value that indicates whether the specified key was just pressed.
     /// </summary>
-    /// <param name="key">The key to check.</param>
+    /// <param name="key">
+    ///     The key to check.
+    /// </param>
     /// <returns>
-    /// <see langword="true"/> if key was just pressed; otherwise,
-    /// <see langword="false"/>. This only returns <see langword="true"/> on
-    /// the first frame the key was pressed.
+    ///     <see langword="true"/> if key was just pressed; otherwise, <see langword="false"/>. This only returns
+    ///     <see langword="true"/> on the first frame the key was pressed.
     /// </returns>
     public bool Pressed(Keys key)
     {
@@ -65,14 +64,14 @@ public sealed class KeyboardInfo
     }
 
     /// <summary>
-    /// Returns a value that indicates whether the specified key was just
-    /// released.
+    ///     Returns a value that indicates whether the specified key was just released.
     /// </summary>
-    /// <param name="key">The key to check.</param>
+    /// <param name="key">
+    ///     The key to check.
+    /// </param>
     /// <returns>
-    /// <see langword="true"/> if key was just released; otherwise,
-    /// <see langword="false"/>. This only returns <see langword="true"/> on the
-    /// first frame the key was released.
+    ///     <see langword="true"/> if key was just released; otherwise, <see langword="false"/>. This only returns
+    ///     <see langword="true"/> on the first frame the key was released.
     /// </returns>
     public bool Released(Keys key)
     {
