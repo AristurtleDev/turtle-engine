@@ -476,3 +476,10 @@ dotnet_diagnostic.CA1027.severity = none
 ### This is game dev, we're using instance fields, get over it
 ################################################################################
 dotnet_diagnostic.CA1051.severity = none
+
+################################################################################
+### Non-constant fields should not be visible
+### https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2211
+###
+################################################################################
+dotnet_diagnostic.CA2211.severity = none

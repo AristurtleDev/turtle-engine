@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 
-namespace TurtleEngine.Input;
+namespace Aristurtle.TurtleEngine.Input;
 
 /// <summary>
 ///     Specifies the values that represent a physical mouse button.

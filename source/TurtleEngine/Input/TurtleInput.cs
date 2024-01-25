@@ -4,42 +4,45 @@
 
 using Microsoft.Xna.Framework;
 
-namespace TurtleEngine.Input;
+namespace Aristurtle.TurtleEngine.Input;
 
 /// <summary>
 ///     Represents the state of input for connected keyboard, mouse, and gamepads.
 /// </summary>
-public sealed class TurtleInput
+public static class TurtleInput
 {
     /// <summary>
     /// Indicates whether input is enabled.
     /// </summary>
-    public bool Enabled;
+    public static bool Enabled { get; set; }
 
     /// <summary>
     ///     The information representing the state of keyboard input.
     /// </summary>
-    public KeyboardInfo Keyboard;
+    public static KeyboardInfo Keyboard { get; private set; }
 
     /// <summary>
     ///     The information representing the state of mouse input.
     /// </summary>
-    public MouseInfo Mouse;
+    public static MouseInfo Mouse { get; private set; }
 
     /// <summary>
     ///     The information representing the state of gamepad input.
     /// </summary>
-    public GamePadInfo[] GamePads;
+    public static GamePadInfo[] GamePads { get; private set; }
 
     /// <summary>
-    ///     Creates a new instance of the <see cref="TurtleInput"/> class.
+    ///     Initializes the input system.
     /// </summary>
-    public TurtleInput()
+    /// <param name="gamePadCount">
+    ///     The total number of gamepads to be supported by the game.
+    /// </param>
+    public static void Initialize(int gamePadCount)
     {
         Keyboard = new KeyboardInfo();
         Mouse = new MouseInfo();
-        GamePads = new GamePadInfo[4];
-        for (int i = 0; i < 4; i++)
+        GamePads = new GamePadInfo[gamePadCount];
+        for (int i = 0; i < gamePadCount; i++)
         {
             GamePads[i] = new GamePadInfo((PlayerIndex)i);
         }
@@ -51,7 +54,7 @@ public sealed class TurtleInput
     /// <param name="gameTime">
     ///     A snapshot of the timing values for the current frame.
     /// </param>
-    public void Update(GameTime gameTime)
+    public static void Update(GameTime gameTime)
     {
         if (!Enabled)
         {

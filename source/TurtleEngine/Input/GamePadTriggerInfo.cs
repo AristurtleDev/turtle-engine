@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 // See LICENSE file in the project root for full license information.
 
-namespace TurtleEngine.Input;
+namespace Aristurtle.TurtleEngine.Input;
 
 /// <summary>
 ///     Represents a snapshot of the state of a gamepad trigger during the previous and current frame.

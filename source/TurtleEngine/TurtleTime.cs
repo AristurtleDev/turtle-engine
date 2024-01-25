@@ -4,7 +4,7 @@
 
 using Microsoft.Xna.Framework;
 
-namespace TurtleEngine;
+namespace Aristurtle.TurtleEngine;
 
 /// <summary>
 ///     Represents the snapshot of timing value for the game.

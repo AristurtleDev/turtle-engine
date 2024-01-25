@@ -4,7 +4,7 @@
 
 using Microsoft.Xna.Framework;
 
-namespace TurtleEngine;
+namespace Aristurtle.TurtleEngine;
 
 /// <summary>
 ///     Utility class that contains various maths.

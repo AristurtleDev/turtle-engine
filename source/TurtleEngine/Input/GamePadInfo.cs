@@ -5,7 +5,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace TurtleEngine.Input;
+namespace Aristurtle.TurtleEngine.Input;
 
 /// <summary>
 ///     Represents a snapshot of the state of a gamepad input during the previous and current frame.

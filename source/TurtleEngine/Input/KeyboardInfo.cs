@@ -4,7 +4,7 @@
 
 using Microsoft.Xna.Framework.Input;
 
-namespace TurtleEngine.Input;
+namespace Aristurtle.TurtleEngine.Input;
 
 /// <summary>
 ///     Represents a snapshot of the state of keyboard input during the previous and current frame.
